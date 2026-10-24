@@ -10,7 +10,10 @@ const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const app = express();
 
 // CORS_ORIGIN: comma-separated list of allowed frontend URLs; unset allows any origin.
-const origins = process.env.CORS_ORIGIN?.split(',').map((o) => o.trim()).filter(Boolean);
+// Trailing slashes are dropped: browsers send the origin without one.
+const origins = process.env.CORS_ORIGIN?.split(',')
+  .map((o) => o.trim().replace(/\/+$/, ''))
+  .filter(Boolean);
 app.use(cors(origins?.length ? { origin: origins } : undefined));
 app.use(express.json());
 
