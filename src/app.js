@@ -14,7 +14,7 @@ const app = express();
 const origins = process.env.CORS_ORIGIN?.split(',')
   .map((o) => o.trim().replace(/\/+$/, ''))
   .filter(Boolean);
-app.use(cors(origins?.length ? { origin: origins } : undefined));
+app.use(cors(origins?.length && !origins.includes('*') ? { origin: origins } : undefined));
 app.use(express.json());
 
 app.get('/', (req, res) => res.json({ ok: true, service: 'family-tree-backend' }));
