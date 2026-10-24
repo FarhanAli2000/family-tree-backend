@@ -1,0 +1,9 @@
+node_modules/
+.env
+
+# Family data and photos stay private — never commit them
+data/*
+!data/.gitkeep
+media/*
+!media/.gitkeep
+*.ged
